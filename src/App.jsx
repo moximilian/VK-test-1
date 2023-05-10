@@ -1,16 +1,14 @@
 import "./style.css";
-import useLocalStorage from 'use-local-storage'
+import useLocalStorage from "use-local-storage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from  "react-datepicker";
-import ru from 'date-fns/locale/ru';
-registerLocale('ru', ru)
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import ru from "date-fns/locale/ru";
+registerLocale("ru", ru);
 import { useState } from "react";
 
 function App() {
-
-  //const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [theme, setTheme] = useLocalStorage('theme','dark');
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
 
   const Towers = ["A", "B"];
 
@@ -57,11 +55,10 @@ function App() {
 
     SendToJSON(e, VALID, array);
   }
-  function handleReset(e){
+  function handleReset(e) {
     e.target.reset();
-    for(let i = 0;i<7;i++){
-      if (e.target[i].id === 'Invalid')
-        e.target[i].id = 'Valid'
+    for (let i = 0; i < 7; i++) {
+      if (e.target[i].id === "Invalid") e.target[i].id = "Valid";
     }
     e.target.reset();
   }
@@ -75,18 +72,24 @@ function App() {
   const room = Rooms.map((rom, index) => {
     return <option key={index}> {rom}</option>;
   });
-  const switchTheme = ()=>{
-    const newTheme = theme === 'light'?'dark' : 'light';
+
+  const switchTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    const newTheme1 = theme === 'light'?'dark' : 'dark';
-    document.getElementById('all').setAttribute('data-theme',theme);
-    
-  } 
+    document.getElementById("all").setAttribute("data-theme", theme);
+  };
 
   return (
     <>
-      <button className="btn-theme" onClick={switchTheme}>Сменить тему</button>
-      <form onReset = {handleReset} onSubmit={handleSubmit} className="form" id="form">
+      <button className="btn-theme" onClick={switchTheme}>
+        Сменить тему
+      </button>
+      <form
+        onReset={handleReset}
+        onSubmit={handleSubmit}
+        className="form"
+        id="form"
+      >
         <div className="form-row">
           <h3 htmlFor="">Форма бронирования переговорной</h3>
           <select id="Valid">
@@ -105,7 +108,7 @@ function App() {
           <label htmlFor="">Выберете дату и время</label>
           <div className="date">
             <DatePicker
-              locale='ru'
+              locale="ru"
               className="dateP"
               name="DATE"
               selected={startDate}
@@ -113,7 +116,6 @@ function App() {
               onChange={(date) => set_startDate(date)}
               timeIntervals={15}
               showTimeSelect
-
             />
           </div>
           <textarea
@@ -121,8 +123,12 @@ function App() {
             cols="30"
             rows="10"
           ></textarea>
-          <button className="btn" type = "submit">Отправить</button>
-          <button className="btn" type = "reset" >Очистить</button>
+          <button className="btn" type="submit">
+            Отправить
+          </button>
+          <button className="btn" type="reset">
+            Очистить
+          </button>
         </div>
       </form>
     </>
